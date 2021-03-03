@@ -32,11 +32,8 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable Long id) {
-        Optional<Student> studentOptional = studentRepository.findById(id);
-        if (studentOptional.isPresent()) {
-            return ResponseEntity.ok(studentOptional.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return studentRepository.findById(id)
+                .map(student -> ResponseEntity.ok(student))
+                .orElse(ResponseEntity.notFound().build());
     }
 }
