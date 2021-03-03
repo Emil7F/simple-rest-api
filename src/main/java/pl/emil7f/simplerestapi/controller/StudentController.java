@@ -1,11 +1,14 @@
 package pl.emil7f.simplerestapi.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.emil7f.simplerestapi.repository.StudentRepository;
 import pl.emil7f.simplerestapi.model.Student;
+import pl.emil7f.simplerestapi.repository.StudentRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
@@ -27,4 +30,13 @@ public class StudentController {
         return studentRepository.save(student);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
+        Optional<Student> studentOptional = studentRepository.findById(id);
+        if (studentOptional.isPresent()) {
+            return ResponseEntity.ok(studentOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
