@@ -1,4 +1,4 @@
-package pl.emil7f.simplerestapi;
+package pl.emil7f.simplerestapi.model;
 
 
 import javax.persistence.Entity;
