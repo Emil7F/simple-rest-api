@@ -1,5 +1,8 @@
 package pl.emil7f.simplerestapi.controller;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -76,6 +79,23 @@ public class StudentController {
                     return ResponseEntity.ok().body(studentRepository.save(studentFromDb));
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/findbylastname")
+    public List<Student> findStudentByLastName(@RequestParam String lastName, @RequestParam int numOfPage) {
+        Pageable pageable = PageRequest.of(numOfPage, 2, Sort.by("firstName"));
+        return studentRepository.findByLastName(lastName, pageable);
+    }
+
+    @GetMapping("/findbylastname2")
+    public List<Student> findStudentByLastNameAndFirstNameNotLike(
+            @RequestParam String lastName, @RequestParam String firstName) {
+        return studentRepository.findByLastNameAndFirstNameIsNotLikeAllIgnoreCase(lastName, firstName);
+    }
+
+    @GetMapping("/findJohn")
+    public List<Student> findJohn() {
+        return studentRepository.findStudentsWithNameJohn();
     }
 
 }
