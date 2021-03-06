@@ -6,10 +6,9 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 
-@ConfigurationProperties(prefix = "user")
-@Component
+
 @Validated
-public class UserProperties {
+public class MyLogProperties {
 
     @NotNull
     private String login;
