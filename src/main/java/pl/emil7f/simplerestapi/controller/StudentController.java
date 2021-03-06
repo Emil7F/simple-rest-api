@@ -42,8 +42,21 @@ public class StudentController {
         return studentRepository.findById(id)
                 .map(student -> {
                     studentRepository.delete(student);
-                   return ResponseEntity.ok().build();
+                    return ResponseEntity.ok().build();
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> putStudent(@PathVariable Long id, @RequestBody @Valid Student student) {
+        return studentRepository.findById(id)
+                .map(studentFromDb -> {
+                    studentFromDb.setFirstName(student.getFirstName());
+                    studentFromDb.setLastName(student.getLastName());
+                    studentFromDb.setEmail(student.getEmail());
+                    return ResponseEntity.ok().body(studentRepository.save(studentFromDb));
+                })
+                .orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
 }
