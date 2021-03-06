@@ -2,6 +2,7 @@ package pl.emil7f.simplerestapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import pl.emil7f.simplerestapi.model.Student;
 import pl.emil7f.simplerestapi.repository.StudentRepository;
@@ -56,7 +57,25 @@ public class StudentController {
                     studentFromDb.setEmail(student.getEmail());
                     return ResponseEntity.ok().body(studentRepository.save(studentFromDb));
                 })
-                .orElseGet(()-> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Student> patchStudent(@PathVariable Long id, @RequestBody Student student) {
+        return studentRepository.findById(id)
+                .map(studentFromDb -> {
+                    if (!StringUtils.isEmpty(student.getFirstName())) {
+                        studentFromDb.setFirstName(student.getFirstName());
+                    }
+                    if (!StringUtils.isEmpty(student.getLastName())) {
+                        studentFromDb.setLastName(student.getLastName());
+                    }
+                    if (!StringUtils.isEmpty(student.getEmail())) {
+                        studentFromDb.setEmail(student.getEmail());
+                    }
+                    return ResponseEntity.ok().body(studentRepository.save(studentFromDb));
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }
