@@ -36,4 +36,14 @@ public class StudentController {
                 .map(student -> ResponseEntity.ok(student))
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
+        return studentRepository.findById(id)
+                .map(student -> {
+                    studentRepository.delete(student);
+                   return ResponseEntity.ok().build();
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
