@@ -16,21 +16,7 @@ public class SimpleRestApiApplication {
         SpringApplication.run(SimpleRestApiApplication.class, args);
     }
 
-    @Value("${my.information}")
-    private List<String> myInformation;
 
-    @Value("${show.myInformation}")
-    private boolean showInfo;
-
-    /*  Metoda wykona się tylko raz, zaraz po inicjalizacji     */
-    @PostConstruct
-    void showInfo() {
-        if (showInfo) {
-            myInformation.forEach(info -> System.out.println(info));
-        } else {
-            System.out.println("No information");
-        }
-    }
 
 
 }
