@@ -6,4 +6,6 @@ import pl.emil7f.simplerestapi.model.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
+
+
 }
