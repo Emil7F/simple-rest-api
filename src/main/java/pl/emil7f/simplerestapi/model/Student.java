@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Entity
 public class Student {
@@ -53,4 +54,6 @@ public class Student {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 }

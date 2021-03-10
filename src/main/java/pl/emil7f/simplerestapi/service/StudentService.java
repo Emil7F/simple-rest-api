@@ -7,6 +7,7 @@ import pl.emil7f.simplerestapi.model.Student;
 import pl.emil7f.simplerestapi.repository.StudentRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -27,10 +28,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public ResponseEntity<Student> getStudent(Long id) {
-        return studentRepository.findById(id)
-                .map(student -> ResponseEntity.ok(student))
-                .orElse(ResponseEntity.notFound().build());
+    public Optional<Student> getStudent(Long id) {
+        return studentRepository.findById(id);
     }
 
     public ResponseEntity<?> deleteStudent(Long id) {
