@@ -7,6 +7,7 @@ import pl.emil7f.simplerestapi.exception.StudentException;
 import pl.emil7f.simplerestapi.model.Student;
 import pl.emil7f.simplerestapi.repository.StudentRepository;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -30,7 +31,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student addStudent(Student student) {
+    public Student addStudent(@Valid  Student student) {
+
         return studentRepository.save(student);
     }
 
