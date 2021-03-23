@@ -4,10 +4,11 @@ package pl.emil7f.simplerestapi.model;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@SequenceGenerator(name = "seqIdGen", initialValue = 20000, allocationSize = 1)
+@SequenceGenerator(name = "seqIdGen", initialValue = 20006, allocationSize = 1)
 public class Student {
 
     @Id
@@ -22,6 +23,16 @@ public class Student {
     @NotBlank
     @Column(unique = true)
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Status status;
+
+
+    public enum Status {
+        ACTIVE,
+        INACTIVE
+    }
 
 
     public String getFirstName() {
@@ -54,5 +65,13 @@ public class Student {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
