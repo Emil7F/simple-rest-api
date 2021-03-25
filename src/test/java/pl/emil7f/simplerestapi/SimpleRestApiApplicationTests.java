@@ -9,5 +9,4 @@ class SimpleRestApiApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
