@@ -23,6 +23,11 @@ public class StudentController {
         return studentService.getStudents(status);
     }
 
+    @GetMapping("/emails")
+    public List<Student> getStudentsByEmails(@RequestBody List<String> emails){
+        return studentService.getStudentsByEmails(emails);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Student addStudent(@RequestBody @Valid Student student) {

@@ -11,6 +11,7 @@ import pl.emil7f.simplerestapi.repository.StudentRepository;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -57,7 +58,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id)
                 .map(studentFromDb -> {
                     if (studentRepository.existsByEmail(student.getEmail()) &&
-                    !studentFromDb.getEmail().equals(student.getEmail())) {
+                            !studentFromDb.getEmail().equals(student.getEmail())) {
                         throw new StudentException(StudentError.STUDENT_EMAIL_ALREADY_EXIST);
                     }
                     studentFromDb.setFirstName(student.getFirstName());
@@ -91,5 +92,10 @@ public class StudentServiceImpl implements StudentService {
                     return studentRepository.save(studentFromDb);
                 })
                 .orElseThrow(() -> new StudentException(StudentError.STUDENT_NOT_FOUND));
+    }
+
+    @Override
+    public List<Student> getStudentsByEmails(List<String> emails) {
+        return studentRepository.findAllByEmailIn(emails);
     }
 }
