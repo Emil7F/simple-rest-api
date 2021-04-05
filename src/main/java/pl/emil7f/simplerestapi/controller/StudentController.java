@@ -23,7 +23,7 @@ public class StudentController {
         return studentService.getStudents(status);
     }
 
-    @GetMapping("/emails")
+    @PostMapping("/emails")
     public List<Student> getStudentsByEmails(@RequestBody List<String> emails){
         return studentService.getStudentsByEmails(emails);
     }
